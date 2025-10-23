@@ -1,34 +1,36 @@
 package main
 
 import (
+	"banco/contas"
 	"fmt"
 )
-
-// criando uma estrutura em go
-type ContaCorrente struct {
-	titular     string
-	agencia     int
-	numeroConta int
-	saldo       float64
-}
 
 // utilizando no struct no main
 func main() {
 
-	conta := ContaCorrente{titular: "Goku", agencia: 111,
-		numeroConta: 123456, saldo: 142.50}
-	conta2 := ContaCorrente{titular: "Goku", agencia: 111,
-		numeroConta: 123456, saldo: 142.50}
-	//como se fosse o equals, pois compara o conteúdo.
-	fmt.Println(conta == conta2)
-	// conta2 := ContaCorrente{"Neto", 111, 123456, 150.00}
-	// fmt.Println("Essa é outra conta: ", conta2)
+	contaDaSilva := contas.ContaCorrente{}
+	contaDaSilva.Titular = "Silva"
+	contaDaSilva.Saldo = 500
 
-	// //exemplo de como utilizar ponteiros
-	// var contaDoNeto *ContaCorrente
-	// contaDoNeto = new(ContaCorrente)
-	// contaDoNeto.titular = "Neto"
+	fmt.Println(contaDaSilva.Saldo)
 
-	// fmt.Println(*contaDoNeto)
+	fmt.Println(contaDaSilva.Sacar(-1000))
 
+	fmt.Println(contaDaSilva.Saldo)
+
+	fmt.Println(contaDaSilva.Depositar(1000))
+
+	status, valor := contaDaSilva.Depositar(200)
+	fmt.Println(status, valor)
+
+	contaDoNeto := contas.ContaCorrente{Titular: "Neto", Saldo: 400}
+	contaDoMarcos := contas.ContaCorrente{Titular: "Marcos", Saldo: 400}
+
+	fmt.Println(contaDoMarcos)
+	fmt.Println(contaDoNeto)
+
+	flag := contaDoMarcos.Transferir(-200, &contaDoNeto)
+
+	fmt.Println(flag)
+	fmt.Println(contaDoNeto.Saldo)
 }
